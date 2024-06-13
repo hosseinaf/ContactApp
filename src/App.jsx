@@ -1,5 +1,8 @@
+import Form from "./components/container/Form/Form"
+import Header from "./components/container/Header/Header"
+
  
-import Header from './components/container/Header'
+ 
  
 
 function App() {
@@ -8,6 +11,7 @@ function App() {
   return (
     <>
        <Header/>
+       <Form/>
        
     </>
   )

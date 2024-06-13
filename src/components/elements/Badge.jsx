@@ -1,9 +1,21 @@
- 
+import PropTypes from 'prop-types';
+function Badge({ children, background, color, bgHover, textHover,transition }) {
 
-function Badge({children,background,color}) {
+
   return (
-    <div className={`${background} ${color}  rounded p-[4px] font-bold text-base`}>{children}</div>
-  )
+    <div
+      className={`${background} ${color} ${bgHover} ${textHover} ${transition}  rounded p-[4px] font-bold    `}
+    >
+      {children}
+    </div>
+  );
 }
-
-export default Badge
+Badge.propTypes = {
+  children: PropTypes.node.isRequired,
+  background: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  bgHover: PropTypes.string,
+  textHover: PropTypes.string,
+  transition: PropTypes.string.isRequired,
+};
+export default Badge;
