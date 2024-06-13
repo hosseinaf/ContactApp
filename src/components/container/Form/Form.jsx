@@ -14,18 +14,30 @@ function Form() {
     e.preventDefault();
     // alert("ok")
     // setContacts([...contact, contact]);
-    setContacts((contact)=>[...contact,contact])
+    // setContacts((contact) => [...contact, contact]);
+    setContacts((contacts) => [...contacts, { ...contact }]);
   };
 
   const handleInputChange = (e) => {
     setContact({
       ...contact,
-      [e.target.name]:[ e.target.value]
+      [e.target.name]: [e.target.value],
     });
   };
 
-   console.log(contact)
-   console.log(contacts)
+  const removeHanlder = (phone) => {
+    // alert(phone)
+    // console.log(phone)
+
+    setContacts(
+      contacts.filter((contact) => {
+        return contact.phone !== phone;
+      })
+    );
+  };
+
+  // console.log(contact);
+  // console.log([contacts]);
   return (
     <>
       <div className="w-full mx-auto p-4 pt-6 pb-8 bg-white rounded shadow-md">
@@ -87,17 +99,32 @@ function Form() {
         </form>
       </div>
       <h1 className="mt-14 text-blue-700 text-4xl font-bold  ">Contact List</h1>
+
+      {contacts.length > 0 && (
+        <div className="flex justify-between mt-14">
+          <p className="text-red-400 text-2xl">Name</p>
+          <p className="text-red-400 text-2xl">LastName</p>
+          <p className="text-red-400 text-2xl">Email</p>
+          <p className="text-red-400 text-2xl">Phone</p>
+          <p></p>
+        </div>
+      )}
       {!contacts.length ? (
         <div className="bg-gray-200 p-14  rounded mt-8">
           <h1>No Contact Yet!</h1>
         </div>
       ) : (
-        //  {contacts.map((contact)=>{
-        //   <div>
-        //     <p>name:{contact.name}</p>
-        //   </div>
-         
-        //  })}
+        contacts.map((item) => {
+          return (
+            <div className="flex justify-between mt-4" key={item.id}>
+              <p>{`${item.name}`}</p>
+              <p>{`${item.lastName}`}</p>
+              <p>{` ${item.email}`}</p>
+              <p>{` ${item.phone}`}</p>
+              <button onClick={() => removeHanlder(item.phone)}>remove</button>
+            </div>
+          );
+        })
       )}
     </>
   );
