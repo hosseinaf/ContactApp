@@ -1,5 +1,6 @@
 import { string } from "prop-types";
 import React, { useState } from "react";
+import FormList from "../FormList/FormList";
 
 function Form() {
   const [contacts, setContacts] = useState([]);
@@ -10,22 +11,23 @@ function Form() {
     phone: "",
   });
 
+   
+  
+
   const submitHandler = (e) => {
     e.preventDefault();
-    // alert("ok")
-    // setContacts([...contact, contact]);
+
     // setContacts((contact) => [...contact, contact]);
     setContacts((contacts) => [...contacts, { ...contact }]);
   };
 
   const handleInputChange = (e) => {
-    setContact({
-      ...contact,
-      [e.target.name]: [e.target.value],
-    });
+    const name = e.target.name;
+    const value = e.target.value;
+    setContact((contact) => ({ ...contact, [name]: [value] }));
   };
 
-  const removeHanlder = (phone) => {
+  const removeHandler = (phone) => {
     // alert(phone)
     // console.log(phone)
 
@@ -80,7 +82,7 @@ function Form() {
             </div>
             <div className="w-full md:w-1/2 px-2">
               <input
-                type="tel"
+                type="number"
                 id="phone"
                 name="phone"
                 value={contact.phone}
@@ -100,32 +102,8 @@ function Form() {
       </div>
       <h1 className="mt-14 text-blue-700 text-4xl font-bold  ">Contact List</h1>
 
-      {contacts.length > 0 && (
-        <div className="flex justify-between mt-14">
-          <p className="text-red-400 text-2xl">Name</p>
-          <p className="text-red-400 text-2xl">LastName</p>
-          <p className="text-red-400 text-2xl">Email</p>
-          <p className="text-red-400 text-2xl">Phone</p>
-          <p></p>
-        </div>
-      )}
-      {!contacts.length ? (
-        <div className="bg-gray-200 p-14  rounded mt-8">
-          <h1>No Contact Yet!</h1>
-        </div>
-      ) : (
-        contacts.map((item) => {
-          return (
-            <div className="flex justify-between mt-4" key={item.id}>
-              <p>{`${item.name}`}</p>
-              <p>{`${item.lastName}`}</p>
-              <p>{` ${item.email}`}</p>
-              <p>{` ${item.phone}`}</p>
-              <button onClick={() => removeHanlder(item.phone)}>remove</button>
-            </div>
-          );
-        })
-      )}
+     
+      <FormList  onRemoveHandler={removeHandler}>{contacts}</FormList> 
     </>
   );
 }
