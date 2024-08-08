@@ -1,11 +1,11 @@
 import { useState } from "react";
 import FormList from "../FormList/FormList";
 import inputs from "../../../constant/inputs";
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 as uuidv4, v4 } from "uuid";
 function Form() {
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState({
-    id:"",
+    id: "",
     name: "",
     lastName: "",
     email: "",
@@ -14,12 +14,12 @@ function Form() {
 
   const [message, setMessage] = useState("");
 
+  // Add button
   const submitHandler = (e) => {
     e.preventDefault();
-
     if (contact.name && contact.lastName && contact.email && contact.phone) {
       setMessage("");
-      const newContact={...contact,id:v4()}
+      const newContact = { ...contact, id: v4() };
       setContacts((contacts) => [...contacts, newContact]);
       setContact({
         name: "",
@@ -32,18 +32,16 @@ function Form() {
     setMessage("please enter valid data");
   };
 
+  // Change input
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setContact((contact) => ({ ...contact, [name]: [value] }));
   };
-
-  const removeHandler = (phone) => {
-    setContacts(
-      contacts.filter((contact) => {
-        return contact.phone !== phone;
-      })
-    );
+  //  Remove button
+  const deleteHandler = (id) => {
+    const newContact = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContact);
   };
 
   return (
@@ -79,7 +77,7 @@ function Form() {
 
       <h1 className="mt-14 text-blue-700 text-4xl font-bold">Contact List</h1>
 
-      <FormList onRemoveHandler={removeHandler}>{contacts}</FormList>
+      <FormList contacts={contacts} deleteHandler={deleteHandler} />
     </>
   );
 }

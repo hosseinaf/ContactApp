@@ -1,21 +1,33 @@
 import PropTypes, { any } from "prop-types";
 import FormItem from "../FormItem/FormItem";
 FormList.propTypes = {
-  children: PropTypes.node.isRequired,
-  onRemoveHandler: any,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  deleteHandler: PropTypes.func.isRequired,
 };
-function FormList({ onRemoveHandler, children }) {
+function FormList({ contacts, deleteHandler }) {
   return (
     <div>
-      {!children.length ? (
+      {!contacts.length ? (
         <div className="bg-gray-200 p-14  rounded mt-8">
           <h1>No Contact Yet!</h1>
         </div>
       ) : (
-        children.map((item) => {
-          return(
-            <FormItem data={item} key={item.id} />
-          ) 
+        contacts.map((item) => {
+          return (
+            <FormItem
+              contactsItem={item}
+              key={item.id}
+              deleteHandler={deleteHandler}
+            />
+          );
         })
       )}
     </div>
