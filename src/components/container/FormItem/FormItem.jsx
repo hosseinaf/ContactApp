@@ -1,6 +1,6 @@
-import PropTypes  from "prop-types";
+import PropTypes from "prop-types";
 FormItem.propTypes = {
-    contactsItem: PropTypes.shape({
+  contactsItem: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
@@ -11,7 +11,7 @@ FormItem.propTypes = {
 };
 function FormItem({
   contactsItem: { id, name, lastName, email, phone },
-  deleteHandler,
+  deleteHandler
 }) {
   return (
     <div>
@@ -27,7 +27,7 @@ function FormItem({
           {`${phone}`}
         </p>
 
-        <button onClick={() => deleteHandler(id)}>🗑️</button>
+        <button onClick={()=>deleteHandler(id)}>🗑️</button>
       </div>
     </div>
   );

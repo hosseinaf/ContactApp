@@ -12,7 +12,7 @@ FormList.propTypes = {
   ).isRequired,
   deleteHandler: PropTypes.func.isRequired,
 };
-function FormList({ contacts, deleteHandler }) {
+function FormList({ contacts,deleteHandler  }) {
   return (
     <div>
       {!contacts.length ? (
@@ -26,6 +26,7 @@ function FormList({ contacts, deleteHandler }) {
               contactsItem={item}
               key={item.id}
               deleteHandler={deleteHandler}
+              
             />
           );
         })
